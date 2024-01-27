@@ -10,7 +10,7 @@ import { ThemeToggle } from '../ThemeToggle'
 
 export function DashboardNavbar() {
   const pathname = usePathname()
-  console.log(pathname)
+
   return (
     <nav className="mt-4 grid items-start gap-2">
       {navItems.map((item, index) => (
@@ -29,8 +29,8 @@ export function DashboardNavbar() {
         </Link>
       ))}
       <div className="flex- ml-4 flex-col space-y-5">
-        <UserButton afterSignOutUrl="/" />
         <ThemeToggle />
+        <UserButton afterSignOutUrl="/" />
       </div>
     </nav>
   )

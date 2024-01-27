@@ -27,7 +27,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="bg-slate-100 dark:bg-background">
+            <main className="h-full bg-slate-100  dark:bg-background">
               <Navbar />
               {children}
             </main>

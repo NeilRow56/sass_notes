@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { ThemeToggle } from './ThemeToggle'
 import { Button } from './ui/button'
-import { UserButton } from '@clerk/nextjs'
+import { UserButton, auth } from '@clerk/nextjs'
 
 export function Navbar() {
+  const { userId } = auth()
+
   return (
     <nav className=" flex h-[10vh] items-center border-b bg-slate-200 dark:bg-slate-700">
       <div className="container mx-auto  flex items-center justify-between">
@@ -12,6 +14,7 @@ export function Navbar() {
         </Link>
         <div className="flex items-center gap-x-5">
           <ThemeToggle />
+
           <div className="flex items-center gap-x-5">
             <Button asChild>
               <Link href="/sign-in">Sign in</Link>
@@ -19,8 +22,9 @@ export function Navbar() {
             <Button variant="secondary" asChild>
               <Link href="/sign-up">Sign up</Link>
             </Button>
-            <UserButton afterSignOutUrl="/" />
           </div>
+
+          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
     </nav>

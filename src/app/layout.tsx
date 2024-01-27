@@ -3,7 +3,6 @@ import { Inter } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { Navbar } from '@/components/Navbar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,10 +26,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="h-full bg-slate-100  dark:bg-background">
-              <Navbar />
-              {children}
-            </main>
+            <main className="h-screen  ">{children}</main>
           </ThemeProvider>
         </body>
       </html>

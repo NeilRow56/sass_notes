@@ -90,7 +90,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   type="file"
                   accept="image/*"
                   placeholder="Add profile photo"
-                  className="file:text-blue cursor-pointer border-none bg-transparent outline-none"
+                  className="cursor-pointer border-none bg-transparent outline-none file:text-primary"
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
@@ -102,7 +102,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem className="flex w-full items-center gap-3">
+            <FormItem className="flex w-full flex-col  gap-3">
               <FormLabel className="w-[75px]">Name</FormLabel>
               <FormControl className="text-semibold flex-1 text-gray-200">
                 <Input
@@ -118,7 +118,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem className="flex w-full items-center gap-3">
+            <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="   w-[75px]">Username</FormLabel>
               <FormControl className="text-semibold flex-1 text-gray-200">
                 <Input
@@ -132,10 +132,10 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
         />
         <FormField
           control={form.control}
-          name="username"
+          name="bio"
           render={({ field }) => (
-            <FormItem className="flex w-full items-center gap-3">
-              <FormLabel className="w-[75px]   items-start">Bio</FormLabel>
+            <FormItem className="flex w-full flex-col  gap-3">
+              <FormLabel className="w-[75px]   ">Bio</FormLabel>
               <FormControl className="text-semibold flex-1 text-gray-200">
                 <Textarea
                   rows={10}

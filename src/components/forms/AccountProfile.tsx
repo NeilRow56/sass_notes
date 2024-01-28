@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import Image from 'next/image'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { Textarea } from '../ui/textarea'
 
 interface AccountProfileProps {
@@ -33,25 +33,43 @@ interface AccountProfileProps {
 }
 
 const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
+  const [files, setFiles] = useState<File[]>([])
+
   const form = useForm<z.infer<typeof UserValidation>>({
     resolver: zodResolver(UserValidation),
     defaultValues: {
-      profile_photo: '',
-      name: '',
-      username: '',
-      bio: '',
+      profile_photo: user?.image ? user.image : '',
+      name: user?.name ? user.name : '',
+      username: user?.username ? user.username : '',
+      bio: user?.bio ? user.bio : '',
     },
   })
 
+  const onSubmit = (values: z.infer<typeof UserValidation>) => {
+    console.log(values)
+  }
+
   const handleImage = (
-    e: ChangeEvent,
+    e: ChangeEvent<HTMLInputElement>,
     fieldChange: (value: string) => void
   ) => {
     e.preventDefault()
-  }
 
-  const onSubmit = (values: z.infer<typeof UserValidation>) => {
-    console.log(values)
+    const fileReader = new FileReader()
+
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0]
+      setFiles(Array.from(e.target.files))
+
+      if (!file.type.includes('image')) return
+
+      fileReader.onload = async (event) => {
+        const imageDataUrl = event.target?.result?.toString() || ''
+        fieldChange(imageDataUrl)
+      }
+
+      fileReader.readAsDataURL(file)
+    }
   }
 
   return (
@@ -65,13 +83,13 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
           name="profile_photo"
           render={({ field }) => (
             <FormItem className="flex items-center gap-4">
-              <FormLabel className="  w-[30px] rounded-full bg-slate-800">
+              <FormLabel className="   w-[30px] rounded-full bg-slate-800">
                 {field.value ? (
                   <Image
                     src={field.value}
                     alt="profile_icon"
-                    width={96}
-                    height={96}
+                    width={80}
+                    height={80}
                     priority
                     className="rounded-full object-contain"
                   />

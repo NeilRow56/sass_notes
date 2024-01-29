@@ -1,14 +1,67 @@
 import { DashboardNavbar } from '@/components/dashboard/DashboardNavbar'
 import { UserNav } from '@/components/dashboard/UserNav'
 import { Button } from '@/components/ui/button'
+import { db } from '@/lib/db'
+import { auth, currentUser } from '@clerk/nextjs'
+import { NextResponse } from 'next/server'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
+
+interface getDataProps {
+  email: string
+  id: string
+  firstName: string | undefined | null
+  lastName: string | undefined | null
+}
+
+async function getData({ email, id, firstName, lastName }: getDataProps) {
+  const user = await db.user.findUnique({
+    where: {
+      id,
+      email,
+    },
+    select: {
+      id: true,
+    },
+  })
+
+  if (!user) {
+    const name = `${firstName ?? ''} ${lastName ?? ''}`
+    await db.user.create({
+      data: {
+        id: id,
+        email: email,
+        name: name,
+      },
+    })
+  }
+}
 
 export default async function DashboardLayout({
   children,
 }: {
   children: ReactNode
 }) {
+  const user = await currentUser()
+
+  if (!user) {
+    return redirect('/')
+  }
+
+  const { sessionClaims } = auth()
+
+  const firstName = sessionClaims?.firstName
+  const email = sessionClaims?.email
+  const userId = sessionClaims?.id
+  const lastName = sessionClaims?.lastName
+
+  await getData({
+    email: email as string,
+    firstName: firstName as string,
+    id: userId as string,
+    lastName: lastName as string,
+  })
   return (
     <div className="flex w-full flex-col">
       <nav className=" mx-auto flex h-16 w-full max-w-7xl  items-center justify-between border-b border-slate-600 px-12">

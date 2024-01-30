@@ -12,7 +12,6 @@ import {
 import { CreditCard, Home, Settings } from 'lucide-react'
 
 import Link from 'next/link'
-import { UserButton } from '@clerk/nextjs'
 
 export const navItems = [
   { name: 'Home', href: '/dashboard', icon: Home },
@@ -20,7 +19,7 @@ export const navItems = [
   { name: 'Billing', href: '/dashboard/billing', icon: CreditCard },
 ]
 
-export function UserNav({ name, email }: { name: string; email: string }) {
+export function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,14 +31,6 @@ export function UserNav({ name, email }: { name: string; email: string }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end" forceMount>
-        <DropdownMenuLabel>
-          <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{name}</p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {email}
-            </p>
-          </div>
-        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {navItems.map((item, index) => (
@@ -57,13 +48,6 @@ export function UserNav({ name, email }: { name: string; email: string }) {
           ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-
-        <DropdownMenuItem
-          className="flex w-full items-center justify-between"
-          asChild
-        >
-          <UserButton afterSignOutUrl="/" />
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

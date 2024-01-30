@@ -4,10 +4,10 @@ import { Button } from './ui/button'
 import { UserButton, auth, currentUser } from '@clerk/nextjs'
 import { UserNav } from './dashboard/UserNav'
 
-export function Navbar() {
+export async function Navbar() {
   const { userId } = auth()
 
-  const user = currentUser()
+  const user = await currentUser()
 
   return (
     <nav className=" flex h-[10vh] items-center border-b bg-slate-200 dark:bg-slate-700">
@@ -19,7 +19,7 @@ export function Navbar() {
           <ThemeToggle />
 
           {userId ? (
-            <UserNav email="bob@bt.com" name="bob" />
+            <UserNav />
           ) : (
             <div className="flex items-center gap-x-5">
               <Button asChild>
@@ -30,17 +30,6 @@ export function Navbar() {
               </Button>
             </div>
           )}
-
-          <div className="flex items-center gap-x-5">
-            <Button asChild>
-              <Link href="/sign-in">Sign in</Link>
-            </Button>
-            <Button variant="secondary" asChild>
-              <Link href="/sign-up">Sign up</Link>
-            </Button>
-          </div>
-
-          <UserButton afterSignOutUrl="/" />
         </div>
       </div>
     </nav>

@@ -69,7 +69,7 @@ export default async function DashboardLayout({
           <h1 className="text-3xl font-bold">Sass </h1>
           <span className="text-primary">Notes</span>
         </Link>
-        <UserNav email="dave@bt.com" name="Dave" />
+        <UserNav />
       </nav>
       <div className="mt-10 flex flex-col space-y-6 ">
         <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">

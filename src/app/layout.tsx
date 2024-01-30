@@ -48,7 +48,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <main className="h-screen  ">{children}</main>
+            <main className="h-screen">{children}</main>
           </ThemeProvider>
         </body>
       </html>

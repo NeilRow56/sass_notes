@@ -1,9 +1,9 @@
 import { DashboardNavbar } from '@/components/dashboard/DashboardNavbar'
 import { UserNav } from '@/components/dashboard/UserNav'
-import { Button } from '@/components/ui/button'
+
 import { db } from '@/lib/db'
 import { auth, currentUser } from '@clerk/nextjs'
-import { NextResponse } from 'next/server'
+
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ReactNode } from 'react'
@@ -69,7 +69,7 @@ export default async function DashboardLayout({
           <h1 className="text-3xl font-bold">Sass </h1>
           <span className="text-primary">Notes</span>
         </Link>
-        <UserNav email="dave@bt.com" image="/profile.jpg" name="Dave" />
+        <UserNav email="dave@bt.com" name="Dave" />
       </nav>
       <div className="mt-10 flex flex-col space-y-6 ">
         <div className="container grid flex-1 gap-12 md:grid-cols-[200px_1fr]">
